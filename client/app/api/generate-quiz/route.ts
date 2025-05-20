@@ -1,4 +1,3 @@
-// app/api/generate-quiz/route.ts
 
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
@@ -23,7 +22,7 @@ ${transcriptSegment}
 `;
 
         const response = await openai.chat.completions.create({
-            model: 'llama-3.3-70b-versatile',
+            model: 'llama3-8b-8192',
             messages: [
                 { role: 'system', content: 'You are a helpful AI that creates educational quizzes from transcripts.' },
                 { role: 'user', content: prompt },

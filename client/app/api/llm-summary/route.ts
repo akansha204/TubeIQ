@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 
 
         const completion = await openai.chat.completions.create({
-            model: 'llama-3.3-70b-versatile',
+            model: 'llama3-8b-8192',
             messages: [
                 { role: 'system', content: 'You are a helpful assistant that understands YouTube video content.' },
                 { role: 'user', content: prompt },
