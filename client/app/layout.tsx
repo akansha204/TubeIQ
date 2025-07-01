@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/navbar";
+import { cn } from "@/lib/utils";
+import React from "react";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const sourceSans3 = Source_Sans_3({
+  variable: "--font-source-sans-3",
   subsets: ["latin"],
 });
 
@@ -25,9 +28,35 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${sourceSans3.variable} antialiased dark`}
       >
-        {children}
+        <Navbar />
+
+        <img
+          src="/Ellipse 17.png"
+          alt="gradient background"
+          className="fixed inset-0 w-full h-full min-h-screen pointer-events-none select-none z-0 object-cover"
+          draggable="false"
+          style={{ height: '200vh' }}
+        />
+
+        {/* Grid Background */}
+        <div
+          className={cn(
+            "fixed inset-0 z-10",
+            "[background-size:40px_40px]",
+            "[background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)]",
+            "dark:[background-image:linear-gradient(to_right,rgba(38,38,38,0.3)_1px,transparent_1px),linear-gradient(to_bottom,rgba(38,38,38,0.3)_1px,transparent_1px)]",
+          )}
+        />
+
+        {/* Radial gradient overlay for faded look */}
+        <div className="pointer-events-none fixed inset-0 z-10 bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+
+        <div className="relative z-20">
+
+          {children}
+        </div>
       </body>
     </html>
   );
