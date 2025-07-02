@@ -120,3 +120,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Hide Next.js development UI elements */
+nextjs-portal,
+[data-nextjs-toast],
+[data-nextjs-dialog],
+[data-nextjs-dialog-overlay],
+.__next-dev-overlay-toggle-button,
+.__next_dev_overlay_toggle_button,
+#__next-dev-overlay,
+.__next-build-watcher,
+[data-nextjs-scroll-focus-boundary] + [data-nextjs-dialog-overlay] {
+  display: none !important;
+}

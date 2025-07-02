@@ -61,7 +61,7 @@ export default function SignUpPage() {
     }
 
     return (
-        <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
+        <div className="min-h-screen text-white flex items-center justify-center px-4">
             <div className="max-w-sm w-full space-y-6">
                 <h1 className="text-2xl font-bold">Create your free account</h1>
                 <p className="text-sm text-gray-400">Connect to TubeIQ with:</p>

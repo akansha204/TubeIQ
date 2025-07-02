@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import { cn } from "@/lib/utils";
 import React from "react";
+import SessionProviderWrapper from "@/components/SessionProviderWrapper";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -29,35 +30,39 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${inter.variable} ${sourceSans3.variable} antialiased dark`}
-      >
-        <Navbar />
+      ><SessionProviderWrapper>
+          <Navbar />
 
-        <img
-          src="/Ellipse 17.png"
-          alt="gradient background"
-          className="fixed inset-0 w-full h-full min-h-screen pointer-events-none select-none z-0 object-cover"
-          draggable="false"
-          style={{ height: '200vh' }}
-        />
+          <img
+            src="/Ellipse 17.png"
+            alt="gradient background"
+            className="fixed inset-0 w-full h-full min-h-screen pointer-events-none select-none z-0 object-cover"
+            draggable="false"
+            style={{ height: '200vh' }}
+          />
 
-        {/* Grid Background */}
-        <div
-          className={cn(
-            "fixed inset-0 z-10",
-            "[background-size:40px_40px]",
-            "[background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)]",
-            "dark:[background-image:linear-gradient(to_right,rgba(38,38,38,0.3)_1px,transparent_1px),linear-gradient(to_bottom,rgba(38,38,38,0.3)_1px,transparent_1px)]",
-          )}
-        />
+          {/* Grid Background */}
+          <div
+            className={cn(
+              "fixed inset-0 z-10",
+              "[background-size:40px_40px]",
+              "[background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)]",
+              "dark:[background-image:linear-gradient(to_right,rgba(38,38,38,0.3)_1px,transparent_1px),linear-gradient(to_bottom,rgba(38,38,38,0.3)_1px,transparent_1px)]",
+            )}
+          />
 
-        {/* Radial gradient overlay for faded look */}
-        <div className="pointer-events-none fixed inset-0 z-10 bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+          {/* Radial gradient overlay for faded look */}
+          <div className="pointer-events-none fixed inset-0 z-10 bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
-        <div className="relative z-20">
+          <div className="relative z-20">
 
-          {children}
-        </div>
+
+
+            {children}
+          </div>
+        </SessionProviderWrapper>
+
       </body>
-    </html>
+    </html >
   );
 }
