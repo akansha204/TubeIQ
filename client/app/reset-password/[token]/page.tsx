@@ -37,12 +37,12 @@ export default function ResetPasswordPage() {
     }
 
     return (
-        <div className="min-h-screen bg-black flex items-center justify-center p-4">
-            <div className="bg-[#0f0f0f] p-8 rounded-2xl w-full max-w-md shadow-md border border-gray-800">
-                <h1 className="text-2xl font-semibold text-white mb-2 text-center">
+        <div className="min-h-screen text-white flex items-center justify-center p-4">
+            <div className="p-8 rounded-2xl w-full max-w-md">
+                <h1 className="text-2xl font-bold text-white mb-2 text-center">
                     Set a New Password
                 </h1>
-                <p className="text-gray-400 text-center mb-6">
+                <p className="text-white/60 text-center mb-6">
                     Enter your new password below.
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -53,7 +53,7 @@ export default function ResetPasswordPage() {
                         <p className="text-green-400 text-sm text-center">{success}</p>
                     )}
                     <div>
-                        <label className="block text-gray-300 mb-1" htmlFor="password">
+                        <label className="block text-white/80 text-sm mb-2" htmlFor="password">
                             New Password
                         </label>
                         <input
@@ -62,12 +62,12 @@ export default function ResetPasswordPage() {
                             required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full bg-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                            className="w-full bg-transparent border border-white/20 outline-none text-white placeholder-white/60 px-4 py-3 text-sm rounded-md focus:ring-2 focus:ring-white/40 focus:border-white/40 transition-all"
                             placeholder="••••••••••"
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-300 mb-1" htmlFor="confirm">
+                        <label className="block text-white/80 text-sm mb-2" htmlFor="confirm">
                             Confirm Password
                         </label>
                         <input
@@ -76,20 +76,20 @@ export default function ResetPasswordPage() {
                             required
                             value={confirm}
                             onChange={(e) => setConfirm(e.target.value)}
-                            className="w-full bg-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                            className="w-full bg-transparent border border-white/20 outline-none text-white placeholder-white/60 px-4 py-3 text-sm rounded-md focus:ring-2 focus:ring-white/40 focus:border-white/40 transition-all"
                             placeholder="••••••••••"
                         />
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg py-2 transition"
+                        className="w-full bg-gradient-to-r from-[#E0526D] to-[#E09C52] text-white font-medium py-3 rounded-md hover:opacity-90 transition-all"
                     >
                         Update Password
                     </button>
                 </form>
-                <p className="text-gray-400 text-center mt-6">
+                <p className="text-white/60 text-center mt-6">
                     Remembered your password?{' '}
-                    <Link href="/signin" className="text-green-400 hover:underline">
+                    <Link href="/signin" className="text-[#E0526D] hover:underline">
                         Log in
                     </Link>
                 </p>
