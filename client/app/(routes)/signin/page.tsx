@@ -51,7 +51,7 @@ export default function SignInPage() {
         <div className="min-h-screen text-white flex items-center justify-center px-4">
             <div className="max-w-sm w-full space-y-6">
                 <h1 className="text-2xl font-bold">Log in to your account</h1>
-                <p className="text-sm text-gray-400">Connect to TubeIQ with:</p>
+                <p className="text-sm text-white/60">Connect to TubeIQ with:</p>
 
                 {error && (
                     <div className="bg-red-800 text-red-200 px-4 py-2 rounded-md text-sm">
@@ -70,54 +70,57 @@ export default function SignInPage() {
                     </button>
                 </div>
 
-                <div className="flex items-center gap-2 text-gray-500 text-xs">
-                    <div className="flex-grow border-t border-gray-700"></div>
+                <div className="flex items-center gap-2 text-white/40 text-xs">
+                    <div className="flex-grow border-t border-white/20"></div>
                     <span>OR LOG IN WITH YOUR EMAIL</span>
-                    <div className="flex-grow border-t border-gray-700"></div>
+                    <div className="flex-grow border-t border-white/20"></div>
                 </div>
 
-                <form onSubmit={handleCredentialsLogin} className="space-y-2">
-                    <label className="block text-sm">Email</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-3 py-2 rounded-md bg-gray-800 border border-gray-600 placeholder-gray-500"
-                        placeholder="youremail@email.com"
-                        required
-                    />
-
-                    <div className="flex justify-between text-sm">
-                        <label>Password</label>
-                        <Link href="/reset-page" className="text-blue-400 hover:underline">
-                            Forgot Password?
-                        </Link>
+                <form onSubmit={handleCredentialsLogin} className="space-y-4">
+                    <div>
+                        <label className="block text-sm text-white/80 mb-2">Email</label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full bg-transparent border border-white/20 outline-none text-white placeholder-white/60 px-4 py-3 text-sm rounded-md focus:ring-2 focus:ring-white/40 focus:border-white/40 transition-all"
+                            placeholder="youremail@email.com"
+                            required
+                        />
                     </div>
 
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-3 py-2 rounded-md bg-gray-800 border border-gray-600 placeholder-gray-500"
-                        placeholder="Enter your password"
-                        required
-                    />
+                    <div>
+                        <div className="flex justify-between text-sm mb-2">
+                            <label className="text-white/80">Password</label>
+                            <Link href="/reset-page" className="text-[#E0526D] hover:underline">
+                                Forgot Password?
+                            </Link>
+                        </div>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="w-full bg-transparent border border-white/20 outline-none text-white placeholder-white/60 px-4 py-3 text-sm rounded-md focus:ring-2 focus:ring-white/40 focus:border-white/40 transition-all"
+                            placeholder="Enter your password"
+                            required
+                        />
+                    </div>
 
                     <button
                         type="submit"
                         disabled={!email || !password}
-                        className={`w-full mt-4 py-2 rounded-md font-medium ${email && password
-                            ? 'bg-green-600 hover:bg-green-700 cursor-pointer'
-                            : 'bg-gray-600 cursor-not-allowed'
+                        className={`w-full mt-6 py-3 rounded-md font-medium transition-all ${email && password
+                            ? 'bg-gradient-to-r from-[#E0526D] to-[#E09C52] text-white hover:opacity-90 cursor-pointer'
+                            : 'bg-white/10 text-white/40 cursor-not-allowed'
                             }`}
                     >
                         Log in
                     </button>
                 </form>
 
-                <p className="text-sm text-center text-gray-400">
+                <p className="text-sm text-center text-white/60">
                     New to TubeIQ?{' '}
-                    <Link href="/signup" className="text-blue-400 hover:underline">
+                    <Link href="/signup" className="text-[#E0526D] hover:underline">
                         Sign up for an account
                     </Link>
                 </p>

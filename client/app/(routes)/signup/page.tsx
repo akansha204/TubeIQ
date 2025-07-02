@@ -64,7 +64,7 @@ export default function SignUpPage() {
         <div className="min-h-screen text-white flex items-center justify-center px-4">
             <div className="max-w-sm w-full space-y-6">
                 <h1 className="text-2xl font-bold">Create your free account</h1>
-                <p className="text-sm text-gray-400">Connect to TubeIQ with:</p>
+                <p className="text-sm text-white/60">Connect to TubeIQ with:</p>
 
                 <div className="space-y-2">
                     <button
@@ -75,53 +75,59 @@ export default function SignUpPage() {
                         Google
                     </button>
 
-                    <hr className="border-gray-700" />
+                    <hr className="border-white/20" />
 
-                    <form onSubmit={handleSubmit} className="space-y-2">
-                        <label className="block text-sm">Name</label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            className="w-full px-3 py-2 rounded-md bg-gray-800 border border-gray-600 placeholder-gray-500"
-                            placeholder="Enter your name"
-                        />
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div>
+                            <label className="block text-sm text-white/80 mb-2">Name</label>
+                            <input
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="w-full bg-transparent border border-white/20 outline-none text-white placeholder-white/60 px-4 py-3 text-sm rounded-md focus:ring-2 focus:ring-white/40 focus:border-white/40 transition-all"
+                                placeholder="Enter your name"
+                            />
+                        </div>
 
-                        <label className="block text-sm">Email</label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-3 py-2 rounded-md bg-gray-800 border border-gray-600 placeholder-gray-500"
-                            placeholder="youremail@email.com"
-                        />
+                        <div>
+                            <label className="block text-sm text-white/80 mb-2">Email</label>
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full bg-transparent border border-white/20 outline-none text-white placeholder-white/60 px-4 py-3 text-sm rounded-md focus:ring-2 focus:ring-white/40 focus:border-white/40 transition-all"
+                                placeholder="youremail@email.com"
+                            />
+                        </div>
 
-                        <label className="block text-sm">Password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-3 py-2 rounded-md bg-gray-800 border border-gray-600 placeholder-gray-500"
-                            placeholder="Enter a unique password"
-                        />
+                        <div>
+                            <label className="block text-sm text-white/80 mb-2">Password</label>
+                            <input
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full bg-transparent border border-white/20 outline-none text-white placeholder-white/60 px-4 py-3 text-sm rounded-md focus:ring-2 focus:ring-white/40 focus:border-white/40 transition-all"
+                                placeholder="Enter a unique password"
+                            />
+                        </div>
 
-                        {error && <p className="text-red-500 text-sm">{error}</p>}
+                        {error && <p className="text-red-400 text-sm">{error}</p>}
 
                         <button
                             type="submit"
                             disabled={!email || !password}
-                            className={`w-full mt-4 py-2 rounded-md font-medium ${email && password
-                                ? 'bg-green-600 hover:bg-green-700 cursor-pointer'
-                                : 'bg-gray-600 cursor-not-allowed'
+                            className={`w-full mt-6 py-3 rounded-md font-medium transition-all ${email && password
+                                ? 'bg-gradient-to-r from-[#E0526D] to-[#E09C52] text-white hover:opacity-90 cursor-pointer'
+                                : 'bg-white/10 text-white/40 cursor-not-allowed'
                                 }`}
                         >
                             Continue
                         </button>
                     </form>
 
-                    <p className="text-sm text-center text-gray-400">
+                    <p className="text-sm text-center text-white/60">
                         Already have an account?{' '}
-                        <Link href="/signin" className="text-blue-400 hover:underline">
+                        <Link href="/signin" className="text-[#E0526D] hover:underline">
                             Sign in
                         </Link>
                     </p>
