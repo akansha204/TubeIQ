@@ -2,8 +2,10 @@
 import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ArrowUpIcon, LayoutDashboard, Sparkles, MonitorPlay, HelpCircle } from 'lucide-react'
+import { ArrowUpIcon, LayoutDashboard, Sparkles, MonitorPlay, HelpCircle, Save, Copy, FileText, Brain } from 'lucide-react'
 import Footer from '@/components/footer'
+import ResponseSection from '@/components/ResponseSection'
+import axios from 'axios'
 import {
     Accordion,
     AccordionContent,
@@ -35,17 +37,41 @@ export default function HomePage() {
     const [endTime, setEndTime] = useState('')
     const [selectedTone, setSelectedTone] = useState('')
     const [isDialogOpen, setIsDialogOpen] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [transcriptResult, setTranscriptResult] = useState<string | null>(null)
+    const [error, setError] = useState<string | null>(null)
+    const [isFullTranscript, setIsFullTranscript] = useState(false)
 
-    const handleSubmit = () => {
-        const formData = {
-            videoLink,
-            startTime,
-            endTime,
-            tone: selectedTone
+    const handleSubmit = async () => {
+        if (!videoLink) {
+            setError('Please enter a YouTube video link')
+            return
         }
-        console.log('Form submitted with data:', formData)
-        // Here you would send the data to your server
-        setIsDialogOpen(false)
+
+        setIsLoading(true)
+        setError(null)
+        setTranscriptResult(null)
+
+        try {
+            const response = await axios.post('/api/summarize', {
+                youtubeUrl: videoLink,
+                start: startTime,
+                end: endTime,
+                tone: selectedTone
+            })
+
+            setTranscriptResult(response.data.transcriptText)
+            setIsFullTranscript(response.data.isFullTranscript || false)
+            setIsDialogOpen(false)
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.error || 'Failed to fetch transcript')
+            } else {
+                setError('An error occurred')
+            }
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     const words = [
@@ -132,9 +158,17 @@ export default function HomePage() {
                                     </div>
                                     <Button
                                         onClick={handleSubmit}
-                                        className="w-full bg-gradient-to-r from-[#E0526D] to-[#E09C52] text-white hover:opacity-90 transition-opacity mt-6"
+                                        disabled={isLoading}
+                                        className="w-full bg-gradient-to-r from-[#E0526D] to-[#E09C52] text-white hover:opacity-90 transition-opacity mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
-                                        Summarize
+                                        {isLoading ? (
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                Processing...
+                                            </div>
+                                        ) : (
+                                            'Summarize'
+                                        )}
                                     </Button>
                                 </div>
                             </DialogContent>
@@ -157,12 +191,38 @@ export default function HomePage() {
                         <Button
                             size="lg"
                             onClick={handleSubmit}
-                            className="bg-gradient-to-r from-[#E0526D] to-[#E09C52] text-white w-full sm:w-12 h-12 flex items-center justify-center rounded-md shadow-md hover:opacity-90 transition-opacity sm:ml-auto sm:flex-shrink-0"
+                            disabled={isLoading}
+                            className="bg-gradient-to-r from-[#E0526D] to-[#E09C52] text-white w-full sm:w-12 h-12 flex items-center justify-center rounded-md shadow-md hover:opacity-90 transition-opacity sm:ml-auto sm:flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            <ArrowUpIcon className="w-6 h-6" />
+                            {isLoading ? (
+                                <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            ) : (
+                                <ArrowUpIcon className="w-6 h-6" />
+                            )}
                         </Button>
                     </div>
                 </div>
+
+                {/* Error Display */}
+                {error && (
+                    <div className="w-full max-w-2xl mt-4 bg-red-500/10 border border-red-500/20 rounded-xl p-4 backdrop-blur-md">
+                        <p className="text-red-300 text-sm">{error}</p>
+                    </div>
+                )}
+
+                {/* Response Section */}
+                {transcriptResult && (
+                    <div className="w-full max-w-4xl mt-4">
+                        <ResponseSection
+                            transcript={transcriptResult}
+                            isFullTranscript={isFullTranscript}
+                            startTime={startTime}
+                            endTime={endTime}
+                            videoUrl={videoLink}
+                            selectedTone={selectedTone}
+                        />
+                    </div>
+                )}
             </header>
             {/* </div> */}
 

@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar";
 import { cn } from "@/lib/utils";
 import React from "react";
 import SessionProviderWrapper from "@/components/SessionProviderWrapper";
+import ToastProvider from "@/components/ToastProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -55,11 +56,9 @@ export default function RootLayout({
           <div className="pointer-events-none fixed inset-0 z-10 bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
           <div className="relative z-20">
-
-
-
             {children}
           </div>
+          <ToastProvider />
         </SessionProviderWrapper>
 
       </body>
