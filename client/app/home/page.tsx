@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ArrowUpIcon, LayoutDashboard, Sparkles, MonitorPlay, HelpCircle, Save, Copy, FileText, Brain } from 'lucide-react'
+import { ArrowUpIcon, LayoutDashboard, Sparkles, MonitorPlay, HelpCircle, Save, Copy, FileText } from 'lucide-react'
 import Footer from '@/components/footer'
 import ResponseSection from '@/components/ResponseSection'
 import axios from 'axios'
@@ -41,6 +41,9 @@ export default function HomePage() {
     const [transcriptResult, setTranscriptResult] = useState<string | null>(null)
     const [error, setError] = useState<string | null>(null)
     const [isFullTranscript, setIsFullTranscript] = useState(false)
+    const [processingStatus, setProcessingStatus] = useState<string>('')
+    const [mockDataNote, setMockDataNote] = useState<string | null>(null)
+
 
     const handleSubmit = async () => {
         if (!videoLink) {
@@ -51,8 +54,11 @@ export default function HomePage() {
         setIsLoading(true)
         setError(null)
         setTranscriptResult(null)
+        setMockDataNote(null)
+        setProcessingStatus('Processing video URL...')
 
         try {
+            setProcessingStatus('Extracting transcript...')
             const response = await axios.post('/api/summarize', {
                 youtubeUrl: videoLink,
                 start: startTime,
@@ -62,6 +68,8 @@ export default function HomePage() {
 
             setTranscriptResult(response.data.transcriptText)
             setIsFullTranscript(response.data.isFullTranscript || false)
+            setMockDataNote(response.data.note || null)
+            setProcessingStatus('')
             setIsDialogOpen(false)
         } catch (err) {
             if (axios.isAxiosError(err)) {
@@ -71,8 +79,11 @@ export default function HomePage() {
             }
         } finally {
             setIsLoading(false)
+            setProcessingStatus('')
         }
     }
+
+
 
     const words = [
         {
@@ -164,7 +175,7 @@ export default function HomePage() {
                                         {isLoading ? (
                                             <div className="flex items-center gap-2">
                                                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                                Processing...
+                                                {processingStatus || 'Processing...'}
                                             </div>
                                         ) : (
                                             'Summarize'
@@ -210,6 +221,28 @@ export default function HomePage() {
                     </div>
                 )}
 
+                {/* Processing Status */}
+                {isLoading && processingStatus && (
+                    <div className="w-full max-w-2xl mt-4 bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 backdrop-blur-md">
+                        <div className="flex items-center gap-3">
+                            <div className="w-5 h-5 border-2 border-blue-400/30 border-t-blue-400 rounded-full animate-spin" />
+                            <p className="text-blue-300 text-sm font-medium">{processingStatus}</p>
+                        </div>
+                    </div>
+                )}
+
+                {/* Mock Data Note */}
+                {mockDataNote && (
+                    <div className="w-full max-w-2xl mt-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-4 backdrop-blur-md">
+                        <div className="flex items-center gap-3">
+                            <div className="w-5 h-5 bg-yellow-400 rounded-full flex items-center justify-center">
+                                <span className="text-yellow-900 text-xs font-bold">!</span>
+                            </div>
+                            <p className="text-yellow-200 text-sm font-medium">{mockDataNote}</p>
+                        </div>
+                    </div>
+                )}
+
                 {/* Response Section */}
                 {transcriptResult && (
                     <div className="w-full max-w-4xl mt-4">
@@ -223,6 +256,8 @@ export default function HomePage() {
                         />
                     </div>
                 )}
+
+
             </header>
             {/* </div> */}
 
